@@ -60,7 +60,7 @@ export const updatePost = async (req, res) => {
 
   res.json(updatedPost);
 };
-/* 
+
 export const deletePost = async (req, res) => {
   const { id } = req.params;
 
@@ -87,6 +87,6 @@ export const likePost = async (req, res) => {
   );
 
   res.json(updatedPost);
-};*/
+};
 
 export default router;
