@@ -6,15 +6,16 @@ import memories from "../../images/memories.png";
 import { Link, useHistory, useLocation } from "react-router-dom";
 
 function NavBar() {
-  const classes = useStyles();
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
   const dispatch = useDispatch();
   const history = useHistory();
   const location = useLocation();
+  const classes = useStyles();
 
   const logout = () => {
     dispatch({ type: "LOGOUT" });
-    history.push("/");
+
+    history.push("/auth");
 
     setUser(null);
   };
@@ -44,7 +45,7 @@ function NavBar() {
         />
       </div>
       <Toolbar className={classes.toolbar}>
-        {user ? (
+        {user?.result ? (
           <div className={classes.profile}>
             <Avatar
               className={classes.purple}
