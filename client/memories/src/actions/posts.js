@@ -5,7 +5,7 @@ import {
   LIKE,
   DELETE,
 } from "../constants/actionTyps";
-import * as api from "../api";
+import * as api from "../api/index";
 
 //action creators
 
