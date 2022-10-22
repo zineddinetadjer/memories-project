@@ -15,6 +15,7 @@ import useStyles from "./styles";
 import Input from "./Input";
 import Icon from "./Icon";
 import { signin, signup } from "../../actions/auth";
+import { AUTH } from "../../constants/actionTyps";
 
 const initialState = {
   firstName: "",
@@ -30,28 +31,29 @@ function Auth() {
   const [isSignup, setIsSignup] = useState(false);
   const dispatch = useDispatch();
   const history = useHistory();
-  const [formData, setFormData] = useState(initialState);
+  const [form, setForm] = useState(initialState);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     if (isSignup) {
-      dispatch(signup(formData, history));
+      dispatch(signup(form, history));
     } else {
-      dispatch(signin(formData, history));
+      dispatch(signin(form, history));
     }
   };
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setForm({ ...form, [e.target.name]: e.target.value });
   };
 
   const handleShowPassword = () =>
     setShowPassword((prevShowPassword) => !prevShowPassword);
 
   const swicthMode = () => {
+    setForm(initialState);
     setIsSignup((prevIsSignup) => !prevIsSignup);
-    handleShowPassword(false);
+    setShowPassword(false);
   };
 
   const googleSuccess = async (res) => {
@@ -59,7 +61,7 @@ function Auth() {
     const token = res?.tokenId;
 
     try {
-      dispatch({ type: "AUTH", data: { result, token } });
+      dispatch({ type: AUTH, data: { result, token } });
       history.push("/");
     } catch (error) {
       console.log(error);
